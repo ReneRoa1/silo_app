@@ -15,8 +15,8 @@ def get_connection(db_path: str | None = None) -> sqlite3.Connection:
     return conn
 
 
-def init_db(db_path: str = "data/silo_app.db") -> None:
-    conn = get_connection(db_path)
+def init_db() -> None:
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
