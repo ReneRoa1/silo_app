@@ -336,10 +336,18 @@ def render_dimensionamento_page() -> None:
             st.plotly_chart(fig, use_container_width=True)
 
             from app.config import get_temp_dir
-            caminho = get_temp_dir() / "silo.png"
+            from app.visualization.silo_diagram import gerar_diagrama_silo_arquivo
 
+            caminho = get_temp_dir() / "silo.png"
             try:
-                fig.write_image(str(caminho))
+                gerar_diagrama_silo_arquivo(
+                    tipo=melhor.tipo,
+                    largura_base_m=melhor.largura_base_m,
+                    largura_topo_m=melhor.largura_topo_m,
+                    altura_m=melhor.altura_m,
+                    comprimento_m=melhor.comprimento_m,
+                    destino=caminho,
+                )
             except Exception:
                 caminho = None
 
