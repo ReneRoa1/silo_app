@@ -6,11 +6,12 @@ from typing import Any
 
 from app.domain.models import Projeto, EntradaDimensionamento, ResultadoDimensionamento
 from app.storage.sqlite_db import get_connection
+from app.config import get_db_path
 
 
 class ProjectRepository:
-    def __init__(self, db_path: str = "data/silo_app.db") -> None:
-        self.db_path = db_path
+    def __init__(self) -> None:
+        self.db_path = str(get_db_path())
 
     def criar_projeto(self, projeto: Projeto) -> int:
         conn = get_connection(self.db_path)
