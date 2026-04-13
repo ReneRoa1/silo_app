@@ -44,7 +44,7 @@ def _desenhar_secao(ax, tipo: str, base: float, topo: float, altura: float) -> N
         ax.plot(xs, ys, color=AZUL_BORDA, linewidth=2)
         lim_x = max(base, topo) * 0.75
         lim_y_min = -altura * 0.35
-        lim_y_max = altura * 1.35
+        lim_y_max = altura * 1.6
 
     else:  # retangular
         rect = patches.Rectangle(
@@ -62,8 +62,18 @@ def _desenhar_secao(ax, tipo: str, base: float, topo: float, altura: float) -> N
         "", xy=(base / 2, y_cota), xytext=(-base / 2, y_cota),
         arrowprops=dict(arrowstyle="<->", color="#333333", lw=1.2),
     )
-    ax.text(0, y_cota - altura * 0.07, f"{base:.2f} m",
+    ax.text(0, y_cota - altura * 0.07, f"Base: {base:.2f} m",
             ha="center", va="top", fontsize=8.5, color="#333333")
+
+    # Cota do topo (apenas para trapezoidal)
+    if "trapez" in tipo_l and topo != base:
+        y_cota_topo = altura + altura * 0.12
+        ax.annotate(
+            "", xy=(topo / 2, y_cota_topo), xytext=(-topo / 2, y_cota_topo),
+            arrowprops=dict(arrowstyle="<->", color="#333333", lw=1.2),
+        )
+        ax.text(0, y_cota_topo + altura * 0.05, f"Topo: {topo:.2f} m",
+                ha="center", va="bottom", fontsize=8.5, color="#333333")
 
     # Cota vertical (altura)
     x_cota = base / 2 + base * 0.18
