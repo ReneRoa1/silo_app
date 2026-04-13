@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.spec
+
+# PyInstaller artifacts
+silo_app/build/
+silo_app/dist/
+silo_app/installer/output/
+
+# Runtime data (SQLite, exports, temp)
+*.db
+silo_app/data/
+silo_app/temp/
+silo_app/exports/
+silo_app/logs/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Environment
+.env
+.venv/
+venv/
+env/
+
+# VS / IDE
+.vs/
+*.user
+*.suo
+*.pyc
+
+# OS
+Thumbs.db
+.DS_Store

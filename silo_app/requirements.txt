@@ -1,0 +1,8 @@
+streamlit
+plotly
+pandas
+reportlab
+kaleido
+pyinstaller
+Pillow
+matplotlib
