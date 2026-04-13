@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: silo-app
+    runtime: python
+    buildCommand: pip install -r silo_app/requirements.txt
+    startCommand: streamlit run silo_app/app/main.py --server.port $PORT --server.address 0.0.0.0
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+
+# Para persistência de dados (plano pago), adicionar:
+# disk:
+#   name: silo-data
+#   mountPath: /data
+#   sizeGB: 1
+# E nas envVars acima:
+#   - key: DATA_DIR
+#     value: /data
