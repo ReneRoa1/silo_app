@@ -10,13 +10,20 @@ from app.services.projeto_service import ProjetoService
 def render_historico_page() -> None:
     projeto_service = ProjetoService()
 
-    st.title("Histórico de simulações")
-    st.caption("Resumo geral das simulações registradas em todos os projetos.")
+    st.markdown(
+        """
+        <div class="page-header">
+            <h1>Historico de simulacoes</h1>
+            <p>Resumo geral das simulacoes registradas em todos os projetos.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     projetos = projeto_service.listar_projetos()
 
     if not projetos:
-        st.info("Ainda não há projetos cadastrados.")
+        st.info("Ainda nao ha projetos cadastrados.")
         return
 
     linhas = []
@@ -30,16 +37,16 @@ def render_historico_page() -> None:
             linhas.append({
                 "Projeto": projeto["nome"],
                 "ID Projeto": projeto["id"],
-                "ID Simulação": s["id"],
-                "Nome da simulação": s.get("nome_simulacao") or f"Simulação {s['id']}",
+                "ID Simulacao": s["id"],
+                "Nome da simulacao": s.get("nome_simulacao") or f"Simulacao {s['id']}",
                 "Data": s["created_at"],
                 "Tipo": melhor.get("tipo", "-"),
-                "Volume (m³)": round(float(melhor.get("volume_silo_m3", 0) or 0), 2),
-                "Área plantio (ha)": round(float(dados_resultado.get("area_a_ser_plantada", 0) or 0), 2),
+                "Volume (m3)": round(float(melhor.get("volume_silo_m3", 0) or 0), 2),
+                "Area plantio (ha)": round(float(dados_resultado.get("area_a_ser_plantada", 0) or 0), 2),
             })
 
     if not linhas:
-        st.info("Ainda não há simulações salvas.")
+        st.info("Ainda nao ha simulacoes salvas.")
         return
 
     df = pd.DataFrame(linhas)

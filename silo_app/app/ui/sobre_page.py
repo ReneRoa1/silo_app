@@ -5,44 +5,62 @@ import streamlit as st
 
 
 def render_sobre_page() -> None:
-    st.title("Sobre o sistema")
+    st.markdown(
+        """
+        <div class="page-header">
+            <h1>Sobre o sistema</h1>
+            <p>Informacoes sobre o SiloApp e seus recursos.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     st.markdown(
         """
         ### Sistema de Dimensionamento de Silo para Silagem
 
-        Aplicativo desenvolvido para apoiar técnicos, produtores e estudantes
-        no planejamento de silos para silagem, com foco em organização,
-        cálculo técnico, visualização e geração de relatórios.
+        Aplicativo desenvolvido para apoiar tecnicos, produtores e estudantes
+        no planejamento de silos para silagem, com foco em organizacao,
+        calculo tecnico, visualizacao e geracao de relatorios.
         """
     )
 
-    st.markdown("---")
+    st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("Recursos atuais")
         st.markdown(
             """
-            - Dimensionamento técnico  
-            - Otimização geométrica  
-            - Visualização 3D  
-            - Relatório em PDF  
-            - Cadastro de projetos  
-            - Histórico de simulações
-            """
+            <div class="result-card">
+                <h4 style="color: #0d2a5c !important; margin-bottom: 12px;">Recursos atuais</h4>
+                <ul style="line-height: 2;">
+                    <li>Dimensionamento tecnico</li>
+                    <li>Otimizacao geometrica</li>
+                    <li>Visualizacao 3D</li>
+                    <li>Relatorio em PDF</li>
+                    <li>Cadastro de projetos</li>
+                    <li>Historico de simulacoes</li>
+                </ul>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
     with col2:
-        st.subheader("Informações do protótipo")
         st.markdown(
             """
-            - **Versão:** Protótipo 0.1  
-            - **Status:** Em desenvolvimento  
-            - **Uso:** Demonstração técnica e acadêmica
-            """
+            <div class="result-card">
+                <h4 style="color: #0d2a5c !important; margin-bottom: 12px;">Informacoes do prototipo</h4>
+                <ul style="line-height: 2;">
+                    <li><strong>Versao:</strong> Prototipo 0.1</li>
+                    <li><strong>Status:</strong> Em desenvolvimento</li>
+                    <li><strong>Uso:</strong> Demonstracao tecnica e academica</li>
+                </ul>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
-    st.markdown("---")
-    st.info("Protótipo funcional em evolução para versão profissional instalável.")
+    st.write("")
+    st.info("Prototipo funcional em evolucao para versao profissional instalavel.")

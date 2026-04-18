@@ -10,8 +10,15 @@ from app.services.projeto_service import ProjetoService
 def render_projetos_page() -> None:
     projeto_service = ProjetoService()
 
-    st.title("Projetos salvos")
-    st.caption("Gerencie projetos salvos e abra simulações anteriores para continuar a análise.")
+    st.markdown(
+        """
+        <div class="page-header">
+            <h1>Projetos salvos</h1>
+            <p>Gerencie projetos salvos e abra simulacoes anteriores para continuar a analise.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     projetos = projeto_service.listar_projetos()
 
@@ -23,9 +30,9 @@ def render_projetos_page() -> None:
         {
             "ID": p["id"],
             "Nome": p["nome"],
-            "Responsável técnico": p.get("responsavel_tecnico", ""),
+            "Responsavel tecnico": p.get("responsavel_tecnico", ""),
             "Propriedade": p.get("propriedade", ""),
-            "Última atualização": p.get("updated_at", ""),
+            "Ultima atualizacao": p.get("updated_at", ""),
         }
         for p in projetos
     ])
@@ -42,7 +49,7 @@ def render_projetos_page() -> None:
 
     simulacoes = projeto_service.listar_simulacoes_do_projeto(projeto_id)
 
-    st.markdown("## Simulações do projeto")
+    st.markdown("### Simulacoes do projeto")
     simulacao_id = None
 
     if simulacoes:
@@ -50,26 +57,25 @@ def render_projetos_page() -> None:
         for s in simulacoes:
             linhas.append({
                 "ID": s["id"],
-                "Nome da simulação": s.get("nome_simulacao") or f"Simulação {s['id']}",
+                "Nome da simulacao": s.get("nome_simulacao") or f"Simulacao {s['id']}",
                 "Data": s["created_at"],
             })
-
         st.dataframe(pd.DataFrame(linhas), use_container_width=True, hide_index=True)
 
         opcoes_sim = {
-            f"{s.get('nome_simulacao') or f'Simulação {s['id']}'} - {s['created_at']}": s["id"]
+            f"{s.get('nome_simulacao') or 'Simulacao ' + str(s['id'])} - {s['created_at']}": s["id"]
             for s in simulacoes
         }
 
         simulacao_label = st.selectbox(
-            "Selecionar simulação (opcional)",
+            "Selecionar simulacao (opcional)",
             options=["Somente projeto"] + list(opcoes_sim.keys())
         )
 
         if simulacao_label != "Somente projeto":
             simulacao_id = opcoes_sim[simulacao_label]
     else:
-        st.info("Este projeto ainda não possui simulações.")
+        st.info("Este projeto ainda nao possui simulacoes.")
 
     if st.button("Abrir no dimensionamento", use_container_width=True):
         st.session_state["projeto_id_selecionado"] = projeto_id

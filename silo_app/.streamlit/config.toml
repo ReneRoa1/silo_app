@@ -8,3 +8,11 @@ gatherUsageStats = false
 
 [global]
 developmentMode = false
+
+[theme]
+base = "light"
+primaryColor = "#1c93c6"
+backgroundColor = "#f7f9fc"
+secondaryBackgroundColor = "#0d2a5c"
+textColor = "#1f2937"
+font = "sans serif"

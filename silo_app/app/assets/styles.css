@@ -19,50 +19,161 @@
    FUNDO GERAL
 ========================= */
 .stApp {
-    background: linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%);
+    background: linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%) !important;
 }
+
+/* =========================
+   TRANSIÇÃO ENTRE PÁGINAS
+========================= */
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.main .block-container {
+    animation: fadeSlideIn 0.35s ease-out;
+}
+
+/* =========================
+   STEPPER (Formulário por etapas)
+========================= */
+.stepper-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 24px;
+    padding: 0 8px;
+}
+
+.stepper-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.stepper-circle {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.stepper-circle.done {
+    background: var(--azul-claro) !important;
+    color: white !important;
+    box-shadow: 0 3px 8px rgba(28, 147, 198, 0.3);
+}
+
+.stepper-circle.active {
+    background: linear-gradient(135deg, var(--azul-medio), var(--azul-claro)) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(28, 147, 198, 0.35);
+    transform: scale(1.1);
+}
+
+.stepper-circle.pending {
+    background: var(--cinza-medio) !important;
+    color: #9ca3af !important;
+}
+
+.stepper-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.stepper-label.done  { color: var(--azul-claro) !important; }
+.stepper-label.active { color: var(--azul-escuro) !important; }
+.stepper-label.pending { color: #9ca3af !important; }
+
+.stepper-line {
+    flex: 1;
+    height: 2px;
+    margin: 0 6px;
+    border-radius: 1px;
+}
+
+.stepper-line.done { background: var(--azul-claro) !important; }
+.stepper-line.pending { background: var(--cinza-medio) !important; }
 
 /* =========================
    SIDEBAR
 ========================= */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, var(--azul-escuro) 0%, #153b7a 100%);
-    border-right: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, var(--azul-escuro) 0%, #153b7a 100%) !important;
+    border-right: 1px solid rgba(255,255,255,0.08) !important;
 }
 
-    section[data-testid="stSidebar"] * {
-        color: var(--texto-claro) !important;
-    }
-
-/* Radio da sidebar */
-div[role="radiogroup"] label {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 10px 12px !important;
-    margin-bottom: 8px;
-    transition: all 0.2s ease;
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] div,
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3,
+section[data-testid="stSidebar"] h4,
+section[data-testid="stSidebar"] h5,
+section[data-testid="stSidebar"] h6,
+section[data-testid="stSidebar"] label {
+    color: #f8fafc !important;
 }
 
-    div[role="radiogroup"] label:hover {
-        background: rgba(28, 147, 198, 0.22);
-        border-color: rgba(255,255,255,0.18);
-        transform: translateX(2px);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.14);
-    }
+/* Option menu nav links na sidebar */
+section[data-testid="stSidebar"] .nav-link {
+    color: #e2e8f0 !important;
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 12px !important;
+    padding: 10px 14px !important;
+    margin: 3px 0 !important;
+    font-size: 14px !important;
+    transition: all 0.2s ease !important;
+}
 
-    div[role="radiogroup"] label[data-baseweb="radio"] input:checked + div,
-    div[role="radiogroup"] label:has(input:checked) {
-        background: linear-gradient(90deg, rgba(30,79,163,0.92), rgba(28,147,198,0.86));
-        border-color: rgba(255,255,255,0.12);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.18);
-    }
+section[data-testid="stSidebar"] .nav-link:hover {
+    background: rgba(28, 147, 198, 0.22) !important;
+    border-color: rgba(255,255,255,0.18) !important;
+    color: white !important;
+}
+
+section[data-testid="stSidebar"] .nav-link.active,
+section[data-testid="stSidebar"] .nav-link-selected {
+    background: linear-gradient(90deg, #1e4fa3, #1c93c6) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.22) !important;
+    border-color: transparent !important;
+}
+
+section[data-testid="stSidebar"] .nav-link .icon,
+section[data-testid="stSidebar"] .nav-link i {
+    color: #1c93c6 !important;
+}
+
+section[data-testid="stSidebar"] .nav-link.active .icon,
+section[data-testid="stSidebar"] .nav-link.active i,
+section[data-testid="stSidebar"] .nav-link-selected .icon,
+section[data-testid="stSidebar"] .nav-link-selected i {
+    color: white !important;
+}
+
+/* Option menu container */
+section[data-testid="stSidebar"] [data-testid="stVerticalBlockBorderWrapper"] iframe + div,
+section[data-testid="stSidebar"] .nav {
+    background: transparent !important;
+}
 
 /* =========================
-   BOTÕES GERAIS
+   BOTÕES GERAIS (apenas area principal)
 ========================= */
-.stButton > button,
-.stDownloadButton > button {
+.main .stButton > button,
+.main .stDownloadButton > button {
     border-radius: 14px !important;
     border: none !important;
     background: linear-gradient(90deg, var(--azul-escuro), var(--azul-medio)) !important;
@@ -72,18 +183,18 @@ div[role="radiogroup"] label {
     transition: all 0.2s ease-in-out !important;
 }
 
-    .stButton > button:hover,
-    .stDownloadButton > button:hover {
-        transform: translateY(-1px);
-        box-shadow: var(--sombra-media);
-        background: linear-gradient(90deg, var(--azul-medio), var(--azul-claro)) !important;
-    }
+.main .stButton > button:hover,
+.main .stDownloadButton > button:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--sombra-media);
+    background: linear-gradient(90deg, var(--azul-medio), var(--azul-claro)) !important;
+}
 
-    .stButton > button:focus,
-    .stDownloadButton > button:focus {
-        outline: none !important;
-        box-shadow: 0 0 0 3px rgba(28, 147, 198, 0.22), var(--sombra_media);
-    }
+.main .stButton > button:focus,
+.main .stDownloadButton > button:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(28, 147, 198, 0.22), var(--sombra-suave);
+}
 
 /* =========================
    INPUTS E SELECTS
@@ -95,16 +206,34 @@ div[role="radiogroup"] label {
 .stMultiSelect > div > div {
     border-radius: 14px !important;
     border: 1px solid rgba(30, 79, 163, 0.14) !important;
+    background: white !important;
     box-shadow: 0 4px 10px rgba(13, 42, 92, 0.04);
 }
 
-    .stTextInput > div > div:focus-within,
-    .stNumberInput > div > div:focus-within,
-    .stSelectbox > div > div:focus-within,
-    .stMultiSelect > div > div:focus-within {
-        border-color: var(--azul-claro) !important;
-        box-shadow: 0 0 0 3px rgba(28, 147, 198, 0.18) !important;
-    }
+.stTextInput input,
+.stNumberInput input,
+.stTextArea textarea,
+.stSelectbox select {
+    color: var(--texto-escuro) !important;
+    background: white !important;
+}
+
+.stTextInput label,
+.stNumberInput label,
+.stSelectbox label,
+.stTextArea label,
+.stMultiSelect label,
+.stSlider label {
+    color: var(--texto-escuro) !important;
+}
+
+.stTextInput > div > div:focus-within,
+.stNumberInput > div > div:focus-within,
+.stSelectbox > div > div:focus-within,
+.stMultiSelect > div > div:focus-within {
+    border-color: var(--azul-claro) !important;
+    box-shadow: 0 0 0 3px rgba(28, 147, 198, 0.18) !important;
+}
 
 /* =========================
    TABS
@@ -113,51 +242,60 @@ button[data-baseweb="tab"] {
     border-radius: 12px 12px 0 0 !important;
     padding: 10px 16px !important;
     font-weight: 600 !important;
+    color: #6b7280 !important;
+    background: transparent !important;
 }
 
-    button[data-baseweb="tab"][aria-selected="true"] {
-        color: var(--azul-escuro) !important;
-        border-bottom: 3px solid var(--azul-claro) !important;
-    }
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: var(--azul-escuro) !important;
+    border-bottom: 3px solid var(--azul-claro) !important;
+    background: transparent !important;
+}
 
 /* =========================
    MÉTRICAS
 ========================= */
 div[data-testid="metric-container"] {
-    background: white;
+    background: white !important;
     border-radius: 18px;
     padding: 14px 16px;
     box-shadow: var(--sombra-suave);
     border: var(--borda-suave);
 }
 
-/* =========================
-   DATAFRAMES / TABELAS
-========================= */
+div[data-testid="metric-container"],
+div[data-testid="metric-container"] * {
+    color: var(--texto-escuro) !important;
+}
+
 /* =========================
    TABELAS / DATAFRAMES
 ========================= */
 div[data-testid="stDataFrame"] {
-    background: #ffffff !important;
+    background: white !important;
     border-radius: 16px !important;
     padding: 8px !important;
     box-shadow: 0 8px 24px rgba(13, 42, 92, 0.10) !important;
     border: 1px solid rgba(30, 79, 163, 0.10) !important;
 }
 
-    div[data-testid="stDataFrame"] * {
-        color: #1f2937 !important;
-    }
+div[data-testid="stDataFrame"],
+div[data-testid="stDataFrame"] * {
+    color: var(--texto-escuro) !important;
+}
 
 table {
-    background: #ffffff !important;
-    color: #1f2937 !important;
+    background: white !important;
+    color: var(--texto-escuro) !important;
     border-collapse: collapse !important;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 thead tr th {
-    background: #0d2a5c !important;
-    color: #ffffff !important;
+    background: var(--azul-escuro) !important;
+    color: white !important;
+    font-weight: 600;
 }
 
 tbody tr:nth-child(even) {
@@ -165,7 +303,7 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:nth-child(odd) {
-    background: #ffffff !important;
+    background: white !important;
 }
 
 tbody tr:hover {
@@ -181,11 +319,21 @@ th, td {
    EXPANDER
 ========================= */
 details {
-    background: white;
+    background: white !important;
     border-radius: 14px;
     box-shadow: var(--sombra-suave);
     border: var(--borda-suave);
     padding: 6px 10px;
+}
+
+details summary,
+details summary * {
+    color: var(--texto-escuro) !important;
+}
+
+details > div,
+details > div * {
+    color: var(--texto-escuro) !important;
 }
 
 /* =========================
@@ -197,345 +345,357 @@ div[data-testid="stAlert"] {
 }
 
 /* =========================
-   CARDS CUSTOMIZADOS
+   HEADINGS & TEXT (main area)
+   Seletores especificos em vez de .main *
 ========================= */
-.custom-card {
-    background: white;
-    border-radius: 20px;
-    padding: 18px;
-    box-shadow: var(--sombra-suave);
-    border: var(--borda-suave);
-    transition: all 0.2s ease;
-    min-height: 220px;
-}
-
-    .custom-card:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--sombra-media);
-    }
-
-    .custom-card h3 {
-        color: var(--azul-escuro);
-        margin-top: 8px;
-        margin-bottom: 8px;
-    }
-
-    .custom-card p {
-        color: var(--texto-escuro);
-        font-size: 0.98rem;
-    }
-
-/* =========================
-   HERO / BANNER
-========================= */
-.hero-banner {
-    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio));
-    border-radius: 22px;
-    padding: 22px 26px;
-    box-shadow: var(--sombra-media);
-}
-
-    .hero-banner h1,
-    .hero-banner p {
-        color: white;
-        margin: 0;
-    }
-/* =========================
-   TEXTO EM ÁREAS CLARAS
-========================= */
-.main .block-container,
-.main .block-container p,
-.main .block-container li,
-.main .block-container label,
-.main .block-container span,
-.main .block-container div,
 .main .block-container h1,
 .main .block-container h2,
 .main .block-container h3,
 .main .block-container h4,
 .main .block-container h5,
 .main .block-container h6 {
-    color: #1f2937;
-}
-
-/* Cards e containers brancos */
-.custom-card,
-.custom-card p,
-.custom-card h1,
-.custom-card h2,
-.custom-card h3,
-.custom-card h4,
-.custom-card h5,
-.custom-card h6 {
-    color: #1f2937 !important;
-}
-
-/* Inputs em fundo claro */
-.stTextInput label,
-.stNumberInput label,
-.stSelectbox label,
-.stTextArea label,
-.stMultiSelect label {
-    color: #1f2937 !important;
-}
-
-/* Expander em fundo claro */
-details,
-details * {
-    color: #1f2937;
-}
-
-/* Métricas */
-div[data-testid="metric-container"] * {
-    color: #1f2937 !important;
-}
-/* =========================
-   TABELAS / DATAFRAMES
-========================= */
-div[data-testid="stDataFrame"] {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 8px;
-    box-shadow: 0 8px 24px rgba(13, 42, 92, 0.10);
-    border: 1px solid rgba(30, 79, 163, 0.10);
-}
-
-    /* Área interna da tabela */
-    div[data-testid="stDataFrame"] * {
-        color: #1f2937 !important;
-    }
-
-/* Tabelas HTML simples */
-table {
-    background: #ffffff;
-    color: #1f2937;
-    border-collapse: collapse;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-thead tr th {
-    background: #0d2a5c !important;
-    color: #ffffff !important;
-    font-weight: 600;
-}
-
-tbody tr:nth-child(even) {
-    background: #f5f8fc;
-}
-
-tbody tr:nth-child(odd) {
-    background: #ffffff;
-}
-
-tbody tr:hover {
-    background: #eaf2fb !important;
-}
-
-th, td {
-    border: 1px solid rgba(13, 42, 92, 0.08);
-    padding: 10px 12px;
-}
-/* =========================
-   TEXTO DA ÁREA PRINCIPAL
-========================= */
-
-/* força texto escuro no conteúdo principal */
-.main,
-.main * {
-    color: #1f2937 !important;
-}
-
-/* mantém sidebar clara */
-section[data-testid="stSidebar"],
-section[data-testid="stSidebar"] * {
-    color: #f8fafc !important;
-}
-
-/* mantém banner da home branco */
-.hero-banner,
-.hero-banner * {
-    color: #ffffff !important;
-}
-
-/* cards customizados */
-.custom-card,
-.custom-card * {
-    color: #1f2937 !important;
-}
-
-/* títulos das páginas */
-.main h1,
-.main h2,
-.main h3,
-.main h4,
-.main h5,
-.main h6 {
     color: #102a43 !important;
 }
 
-/* textos normais */
-.main p,
-.main li,
-.main label,
-.main span,
-.main div {
-    color: #1f2937 !important;
+.main .block-container p,
+.main .block-container li,
+.main .block-container span {
+    color: var(--texto-escuro) !important;
 }
 
-/* métricas */
-div[data-testid="metric-container"],
-div[data-testid="metric-container"] * {
-    color: #1f2937 !important;
+/* Markdown text */
+.stMarkdown,
+.stMarkdown p,
+.stMarkdown li,
+.stMarkdown span {
+    color: var(--texto-escuro) !important;
 }
 
-/* expander */
-details,
-details * {
-    color: #1f2937 !important;
+/* Caption text */
+.stCaption,
+.stCaption * {
+    color: #6b7280 !important;
 }
 
-/* tabelas e dataframes */
-div[data-testid="stDataFrame"],
-div[data-testid="stDataFrame"] * {
-    color: #1f2937 !important;
-}
 /* =========================
-   SIDEBAR - CORREÇÃO DE CONTRASTE
+   PAGE HEADER / BANNER
+   (fundo escuro -> texto branco)
+========================= */
+.page-header {
+    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio)) !important;
+    border-radius: 16px;
+    padding: 24px 32px;
+    margin-bottom: 24px;
+    box-shadow: var(--sombra-media);
+}
+
+.page-header h1,
+.page-header h2,
+.page-header h3,
+.page-header p,
+.page-header span,
+.page-header div {
+    color: white !important;
+}
+
+/* =========================
+   HERO / BANNER (Home)
+   (fundo escuro -> texto branco)
+========================= */
+.hero-banner {
+    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio)) !important;
+    border-radius: 22px;
+    padding: 32px 36px;
+    box-shadow: var(--sombra-media);
+}
+
+.hero-banner h1,
+.hero-banner h2,
+.hero-banner h3,
+.hero-banner p,
+.hero-banner span,
+.hero-banner div {
+    color: white !important;
+}
+
+.hero-banner h1 {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 8px !important;
+}
+
+.hero-banner p {
+    font-size: 1.05rem !important;
+    opacity: 0.92;
+    margin: 0 !important;
+}
+
+/* =========================
+   NAV CARDS (Home — o próprio <a> é o card clicável)
 ========================= */
 
-/* fundo da sidebar */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0d2a5c 0%, #153b7a 100%) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+.nav-card {
+    display: block;
+    position: relative;
+    background: white !important;
+    border-radius: 20px;
+    border: 1px solid rgba(30, 79, 163, 0.10);
+    box-shadow: 0 4px 20px rgba(13, 42, 92, 0.08);
+    padding: 28px 22px 20px;
+    min-height: 220px;
+    text-decoration: none !important;
+    color: inherit !important;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.28s ease,
+                border-color 0.28s ease;
 }
 
-    /* texto geral da sidebar */
-    section[data-testid="stSidebar"] *,
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] p,
-    section[data-testid="stSidebar"] span,
-    section[data-testid="stSidebar"] div,
-    section[data-testid="stSidebar"] h1,
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] h3,
-    section[data-testid="stSidebar"] h4,
-    section[data-testid="stSidebar"] h5,
-    section[data-testid="stSidebar"] h6 {
-        color: #f8fafc !important;
-    }
+.nav-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 44px rgba(13, 42, 92, 0.16);
+    border-color: rgba(28, 147, 198, 0.32);
+    text-decoration: none !important;
+}
 
-    /* caixas dos inputs da sidebar */
-    section[data-testid="stSidebar"] .stTextInput > div > div,
-    section[data-testid="stSidebar"] .stNumberInput > div > div,
-    section[data-testid="stSidebar"] .stTextArea textarea,
-    section[data-testid="stSidebar"] .stSelectbox > div > div,
-    section[data-testid="stSidebar"] .stMultiSelect > div > div {
-        background: rgba(255, 255, 255, 0.10) !important;
-        color: #ffffff !important;
-        border: 1px solid rgba(255, 255, 255, 0.16) !important;
-        border-radius: 14px !important;
-        box-shadow: none !important;
-    }
+.nav-card:active {
+    transform: translateY(-2px) scale(0.985);
+    transition-duration: 0.08s;
+}
 
-    /* texto digitado nos inputs */
-    section[data-testid="stSidebar"] input,
-    section[data-testid="stSidebar"] textarea {
-        color: #ffffff !important;
-        -webkit-text-fill-color: #ffffff !important;
-    }
+/* Badge no canto superior direito */
+.nav-card-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1e4fa3, #1c93c6);
+    color: white !important;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 0 0 0 14px;
+    line-height: 1;
+}
 
-        /* placeholder dos inputs */
-        section[data-testid="stSidebar"] input::placeholder,
-        section[data-testid="stSidebar"] textarea::placeholder {
-            color: rgba(255, 255, 255, 0.70) !important;
-            opacity: 1 !important;
-        }
+/* Ícone em quadrado claro */
+.nav-card-icon {
+    width: 54px;
+    height: 54px;
+    background: rgba(28, 147, 198, 0.10);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.65rem;
+    color: #1c93c6 !important;
+    margin-top: 14px;
+    margin-bottom: 16px;
+    transition: background 0.28s ease, transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
-    /* foco nos inputs */
-    section[data-testid="stSidebar"] .stTextInput > div > div:focus-within,
-    section[data-testid="stSidebar"] .stNumberInput > div > div:focus-within,
-    section[data-testid="stSidebar"] .stSelectbox > div > div:focus-within,
-    section[data-testid="stSidebar"] .stMultiSelect > div > div:focus-within {
-        border-color: #1c93c6 !important;
-        box-shadow: 0 0 0 3px rgba(28, 147, 198, 0.20) !important;
-    }
+.nav-card:hover .nav-card-icon {
+    background: rgba(28, 147, 198, 0.18);
+    transform: scale(1.10);
+}
 
-    /* área do textarea */
-    section[data-testid="stSidebar"] textarea {
-        background: rgba(255, 255, 255, 0.10) !important;
-        color: #ffffff !important;
-    }
+/* Título */
+.nav-card-title {
+    font-size: 1.12rem !important;
+    font-weight: 700 !important;
+    color: #0d2a5c !important;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.3 !important;
+}
 
-    /* dropdown/select */
-    section[data-testid="stSidebar"] [data-baseweb="select"] > div {
-        background: rgba(255, 255, 255, 0.10) !important;
-        color: #ffffff !important;
-    }
+/* Descrição */
+.nav-card-desc {
+    font-size: 0.875rem !important;
+    color: #6b7280 !important;
+    line-height: 1.6 !important;
+    margin: 0 0 18px 0 !important;
+}
 
-    /* expander da sidebar */
-    section[data-testid="stSidebar"] details,
-    section[data-testid="stSidebar"] details * {
-        background: transparent !important;
-        color: #f8fafc !important;
-    }
+/* Link de ação (no próprio card) */
+.nav-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: #1c93c6 !important;
+    transition: gap 0.22s ease;
+}
 
-    /* botões da sidebar */
-    section[data-testid="stSidebar"] .stButton > button,
-    section[data-testid="stSidebar"] .stDownloadButton > button {
-        background: linear-gradient(90deg, #1e4fa3, #1c93c6) !important;
-        color: #ffffff !important;
-        border: none !important;
-    }
+.nav-card:hover .nav-card-link {
+    gap: 10px;
+}
 
-        section[data-testid="stSidebar"] .stButton > button:hover,
-        section[data-testid="stSidebar"] .stDownloadButton > button:hover {
-            background: linear-gradient(90deg, #1c93c6, #2aa6d6) !important;
-            color: #ffffff !important;
-        }
-    /* ===== SIDEBAR - CAMPOS ESCUROS ===== */
+/* =========================
+   STEPS (Fluxo de uso)
+========================= */
+.step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+}
 
-    section[data-testid="stSidebar"] .stTextInput > div > div > input,
-    section[data-testid="stSidebar"] .stNumberInput input,
-    section[data-testid="stSidebar"] textarea {
-        background: rgba(255, 255, 255, 0.10) !important;
-        color: #ffffff !important;
-        -webkit-text-fill-color: #ffffff !important;
-        border-radius: 12px !important;
-    }
+.step-number {
+    background: linear-gradient(135deg, var(--azul-medio), var(--azul-claro)) !important;
+    color: white !important;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(28, 147, 198, 0.25);
+}
 
-    section[data-testid="stSidebar"] .stTextInput > div > div,
-    section[data-testid="stSidebar"] .stNumberInput > div > div,
-    section[data-testid="stSidebar"] .stTextArea > div > div,
-    section[data-testid="stSidebar"] [data-baseweb="select"] > div {
-        background: rgba(255, 255, 255, 0.10) !important;
-        border: 1px solid rgba(255, 255, 255, 0.18) !important;
-        border-radius: 12px !important;
-        box-shadow: none !important;
-    }
+.step-text {
+    font-size: 0.95rem;
+    color: var(--texto-escuro) !important;
+    padding-top: 6px;
+}
 
-    section[data-testid="stSidebar"] input::placeholder,
-    section[data-testid="stSidebar"] textarea::placeholder {
-        color: rgba(255, 255, 255, 0.70) !important;
-        opacity: 1 !important;
-    }
+/* =========================
+   KPI CARDS (Dimensionamento)
+   (fundo branco -> texto escuro)
+========================= */
+.kpi-card {
+    background: white !important;
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: var(--sombra-suave);
+    border-left: 4px solid var(--azul-claro);
+    transition: all 0.2s ease;
+}
 
-    section[data-testid="stSidebar"] .stTextInput > div > div:focus-within,
-    section[data-testid="stSidebar"] .stNumberInput > div > div:focus-within,
-    section[data-testid="stSidebar"] .stTextArea > div > div:focus-within,
-    section[data-testid="stSidebar"] [data-baseweb="select"] > div:focus-within {
-        border-color: #1c93c6 !important;
-        box-shadow: 0 0 0 3px rgba(28, 147, 198, 0.20) !important;
-    }
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-media);
+}
 
-    /* botões + e - dos number_input */
-    section[data-testid="stSidebar"] button {
-        color: #ffffff !important;
-    }
+.kpi-card .kpi-label {
+    font-size: 0.82rem;
+    color: #6b7280 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
 
-    /* remove fundo branco extra de alguns wrappers */
-    section[data-testid="stSidebar"] [data-testid="stTextInputRootElement"],
-    section[data-testid="stSidebar"] [data-testid="stNumberInputContainer"],
-    section[data-testid="stSidebar"] [data-testid="stTextAreaRootElement"] {
-        background: transparent !important;
-    }
+.kpi-card .kpi-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--azul-escuro) !important;
+}
+
+/* =========================
+   RESULT CARD
+   (fundo branco -> texto escuro)
+========================= */
+.result-card {
+    background: white !important;
+    border-radius: 18px;
+    padding: 22px 26px;
+    box-shadow: var(--sombra-suave);
+    border: var(--borda-suave);
+    margin-bottom: 16px;
+}
+
+.result-card h3,
+.result-card h4,
+.result-card p,
+.result-card li,
+.result-card span {
+    color: var(--texto-escuro) !important;
+}
+
+/* =========================
+   INPUT BLOCK (Dimensionamento form)
+========================= */
+.input-block {
+    background: white !important;
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: var(--sombra-suave);
+    border: var(--borda-suave);
+    margin-bottom: 16px;
+}
+
+.input-block h4 {
+    color: var(--azul-escuro) !important;
+    font-size: 1.05rem !important;
+    margin-bottom: 14px !important;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(28, 147, 198, 0.15);
+}
+
+/* =========================
+   SECTION DIVIDER
+========================= */
+.section-divider {
+    border: none;
+    border-top: 1px solid var(--cinza-medio);
+    margin: 28px 0;
+}
+
+/* =========================
+   QUICK ACTION CARD
+   (fundo escuro -> texto branco)
+========================= */
+.quick-action {
+    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio)) !important;
+    border-radius: 18px;
+    padding: 24px 28px;
+    box-shadow: var(--sombra-media);
+    text-align: center;
+}
+
+.quick-action h3,
+.quick-action p,
+.quick-action span,
+.quick-action i {
+    color: white !important;
+}
+
+.quick-action h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 6px !important;
+}
+
+.quick-action p {
+    font-size: 0.9rem !important;
+    opacity: 0.85;
+}
+
+/* =========================
+   SLIDER
+========================= */
+.stSlider > div > div {
+    color: var(--texto-escuro) !important;
+}
+
+/* =========================
+   SELECTBOX dropdown text
+========================= */
+[data-baseweb="select"] span,
+[data-baseweb="select"] div {
+    color: var(--texto-escuro) !important;
+}
+
+[data-baseweb="popover"] li,
+[data-baseweb="popover"] li * {
+    color: var(--texto-escuro) !important;
+    background: white !important;
+}
+
+[data-baseweb="popover"] li:hover {
+    background: #eef3f8 !important;
+}

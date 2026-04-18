@@ -4,6 +4,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import streamlit as st
+from streamlit_option_menu import option_menu
 
 from app.storage.sqlite_db import init_db
 from app.ui.home_page import render_home_page
@@ -16,24 +17,41 @@ from app.ui.sobre_page import render_sobre_page
 ASSETS_DIR = Path("app/assets")
 LOGO_PATH = ASSETS_DIR / "logo.png"
 
+
 def carregar_css_global() -> None:
     css_path = Path("app/assets/styles.css")
     if css_path.exists():
         with open(css_path, "r", encoding="utf-8") as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+
 def run_streamlit_app() -> None:
     init_db()
 
     st.set_page_config(
-        page_title="Dimensionamento de Silo",
+        page_title="SiloApp - Dimensionamento de Silo",
+        page_icon=str(LOGO_PATH) if LOGO_PATH.exists() else None,
         layout="wide",
     )
     carregar_css_global()
+    st.markdown(
+        '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">',
+        unsafe_allow_html=True,
+    )
     if "pagina_atual" not in st.session_state:
         st.session_state["pagina_atual"] = "Início"
 
     paginas = ["Início", "Dimensionamento", "Projetos", "Histórico", "Sobre"]
+
+    # Navegação por query param (?goto=...) — usada pelos cards da home
+    try:
+        goto = st.query_params.get("goto")
+        if goto and goto in paginas:
+            st.session_state["pagina_atual"] = goto
+            st.query_params.clear()
+    except Exception:
+        pass
+    icones = ["house-fill", "rulers", "folder2-open", "clock-history", "info-circle"]
 
     with st.sidebar:
         if LOGO_PATH.exists():
@@ -43,9 +61,9 @@ def run_streamlit_app() -> None:
 
         st.markdown(
             """
-            <div style="text-align: center; margin-top: 6px; margin-bottom: 12px;">
-                <h3 style="margin-bottom: 4px;">SiloApp</h3>
-                <p style="font-size: 13px; margin-top: 0;">
+            <div style="text-align: center; margin-top: 4px; margin-bottom: 18px;">
+                <h3 style="margin-bottom: 2px; font-size: 1.3rem;">SiloApp</h3>
+                <p style="font-size: 12px; margin-top: 0; opacity: 0.8;">
                     Dimensionamento de silo para silagem
                 </p>
             </div>
@@ -53,19 +71,45 @@ def run_streamlit_app() -> None:
             unsafe_allow_html=True,
         )
 
-        st.markdown("---")
+        idx_atual = paginas.index(st.session_state["pagina_atual"]) if st.session_state["pagina_atual"] in paginas else 0
 
-        pagina = st.radio(
-            "Ir para",
-            paginas,
-            index=paginas.index(st.session_state["pagina_atual"]),
-            label_visibility="collapsed",
+        pagina = option_menu(
+            menu_title="",
+            options=paginas,
+            icons=icones,
+            default_index=idx_atual,
+            styles={
+                "container": {"padding": "6px 8px", "background-color": "transparent"},
+                "icon": {"color": "#1c93c6", "font-size": "17px"},
+                "nav-link": {
+                    "font-size": "14px",
+                    "text-align": "left",
+                    "margin": "3px 0",
+                    "border-radius": "12px",
+                    "padding": "10px 14px",
+                    "color": "#e2e8f0",
+                    "background": "rgba(255,255,255,0.06)",
+                    "border": "1px solid rgba(255,255,255,0.08)",
+                    "--hover-color": "rgba(28, 147, 198, 0.18)",
+                },
+                "nav-link-selected": {
+                    "background": "linear-gradient(90deg, #1e4fa3, #1c93c6)",
+                    "color": "white",
+                    "font-weight": "600",
+                    "box-shadow": "0 4px 14px rgba(0,0,0,0.22)",
+                },
+            },
         )
         st.session_state["pagina_atual"] = pagina
 
-        st.markdown("---")
-        st.caption("Protótipo funcional")
-        st.caption("Versão 0.1")
+        st.markdown(
+            """
+            <div style="text-align: center; margin-top: 28px; opacity: 0.5; font-size: 11px;">
+                <p>Versao 0.1</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     if pagina == "Início":
         render_home_page()
