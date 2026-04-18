@@ -145,28 +145,49 @@ html, body, .stApp, [data-testid="stAppViewContainer"] {
 .stepper-line.pending { background: var(--cinza-medio) !important; }
 
 /* =========================
-   SIDEBAR
+   SIDEBAR — seletor sem prefixo de tag para funcionar em todas as versões
 ========================= */
-section[data-testid="stSidebar"] {
+[data-testid="stSidebar"],
+[data-testid="stSidebar"] > div,
+[data-testid="stSidebarContent"],
+[data-testid="stSidebarNav"] {
     background: linear-gradient(180deg, var(--azul-escuro) 0%, #153b7a 100%) !important;
     border-right: 1px solid rgba(255,255,255,0.08) !important;
 }
 
-section[data-testid="stSidebar"] p,
-section[data-testid="stSidebar"] span,
-section[data-testid="stSidebar"] div,
-section[data-testid="stSidebar"] h1,
-section[data-testid="stSidebar"] h2,
-section[data-testid="stSidebar"] h3,
-section[data-testid="stSidebar"] h4,
-section[data-testid="stSidebar"] h5,
-section[data-testid="stSidebar"] h6,
-section[data-testid="stSidebar"] label {
+/* Dark-mode do sistema: manter sidebar com o mesmo gradiente escuro */
+@media (prefers-color-scheme: dark) {
+    [data-testid="stSidebar"],
+    [data-testid="stSidebar"] > div,
+    [data-testid="stSidebarContent"] {
+        background: linear-gradient(180deg, var(--azul-escuro) 0%, #153b7a 100%) !important;
+    }
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] div,
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] label {
+        color: #f8fafc !important;
+    }
+}
+
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] div,
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] h4,
+[data-testid="stSidebar"] h5,
+[data-testid="stSidebar"] h6,
+[data-testid="stSidebar"] label {
     color: #f8fafc !important;
 }
 
 /* Option menu nav links na sidebar */
-section[data-testid="stSidebar"] .nav-link {
+[data-testid="stSidebar"] .nav-link {
     color: #e2e8f0 !important;
     background: rgba(255,255,255,0.06) !important;
     border: 1px solid rgba(255,255,255,0.08) !important;
@@ -177,14 +198,14 @@ section[data-testid="stSidebar"] .nav-link {
     transition: all 0.2s ease !important;
 }
 
-section[data-testid="stSidebar"] .nav-link:hover {
+[data-testid="stSidebar"] .nav-link:hover {
     background: rgba(28, 147, 198, 0.22) !important;
     border-color: rgba(255,255,255,0.18) !important;
     color: white !important;
 }
 
-section[data-testid="stSidebar"] .nav-link.active,
-section[data-testid="stSidebar"] .nav-link-selected {
+[data-testid="stSidebar"] .nav-link.active,
+[data-testid="stSidebar"] .nav-link-selected {
     background: linear-gradient(90deg, #1e4fa3, #1c93c6) !important;
     color: white !important;
     font-weight: 600 !important;
@@ -192,21 +213,21 @@ section[data-testid="stSidebar"] .nav-link-selected {
     border-color: transparent !important;
 }
 
-section[data-testid="stSidebar"] .nav-link .icon,
-section[data-testid="stSidebar"] .nav-link i {
+[data-testid="stSidebar"] .nav-link .icon,
+[data-testid="stSidebar"] .nav-link i {
     color: #1c93c6 !important;
 }
 
-section[data-testid="stSidebar"] .nav-link.active .icon,
-section[data-testid="stSidebar"] .nav-link.active i,
-section[data-testid="stSidebar"] .nav-link-selected .icon,
-section[data-testid="stSidebar"] .nav-link-selected i {
+[data-testid="stSidebar"] .nav-link.active .icon,
+[data-testid="stSidebar"] .nav-link.active i,
+[data-testid="stSidebar"] .nav-link-selected .icon,
+[data-testid="stSidebar"] .nav-link-selected i {
     color: white !important;
 }
 
 /* Option menu container */
-section[data-testid="stSidebar"] [data-testid="stVerticalBlockBorderWrapper"] iframe + div,
-section[data-testid="stSidebar"] .nav {
+[data-testid="stSidebar"] [data-testid="stVerticalBlockBorderWrapper"] iframe + div,
+[data-testid="stSidebar"] .nav {
     background: transparent !important;
 }
 
@@ -357,24 +378,56 @@ th, td {
 }
 
 /* =========================
-   EXPANDER
+   EXPANDER (compatível com Streamlit 1.30+)
 ========================= */
-details {
+details,
+[data-testid="stExpander"],
+[data-testid="stExpander"] > details,
+[data-testid="stExpander"] > div,
+div[data-testid="stExpander"] {
     background: white !important;
-    border-radius: 14px;
+    border-radius: 14px !important;
     box-shadow: var(--sombra-suave);
     border: var(--borda-suave);
+}
+
+details {
     padding: 6px 10px;
 }
 
 details summary,
-details summary * {
+details summary *,
+[data-testid="stExpander"] summary,
+[data-testid="stExpander"] summary *,
+[data-testid="stExpanderToggleIcon"],
+[data-testid="stExpanderHeader"],
+[data-testid="stExpanderHeader"] * {
     color: var(--texto-escuro) !important;
+    background: transparent !important;
 }
 
 details > div,
-details > div * {
+details > div *,
+[data-testid="stExpander"] [data-testid="stExpanderDetails"],
+[data-testid="stExpander"] [data-testid="stExpanderDetails"] * {
     color: var(--texto-escuro) !important;
+}
+
+/* Garantir no dark-mode do sistema também */
+@media (prefers-color-scheme: dark) {
+    details,
+    [data-testid="stExpander"],
+    [data-testid="stExpander"] > details,
+    [data-testid="stExpander"] > div {
+        background: white !important;
+    }
+    details summary, details summary *,
+    [data-testid="stExpander"] summary,
+    [data-testid="stExpander"] summary *,
+    [data-testid="stExpanderHeader"],
+    [data-testid="stExpanderHeader"] * {
+        color: #1f2937 !important;
+    }
 }
 
 /* =========================
