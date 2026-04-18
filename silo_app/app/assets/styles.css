@@ -1,4 +1,45 @@
 /* =========================
+   FORÇAR TEMA CLARO — ignora preferência do sistema/navegador
+========================= */
+html, body, .stApp, [data-testid="stAppViewContainer"] {
+    color-scheme: light !important;
+}
+
+/* Override da media query de dark mode que o browser poderia aplicar */
+@media (prefers-color-scheme: dark) {
+    html, body, .stApp, [data-testid="stAppViewContainer"] {
+        color-scheme: light !important;
+        background: linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%) !important;
+        color: #1f2937 !important;
+    }
+    .main .block-container,
+    .main .block-container p,
+    .main .block-container li,
+    .main .block-container span,
+    .main .block-container h1,
+    .main .block-container h2,
+    .main .block-container h3,
+    .main .block-container h4,
+    .main .block-container h5,
+    .main .block-container h6,
+    .stMarkdown, .stMarkdown * {
+        color: #1f2937 !important;
+    }
+    /* Labels dos inputs */
+    label, .stTextInput label, .stNumberInput label,
+    .stSelectbox label, .stTextArea label,
+    .stMultiSelect label, .stSlider label, .stRadio label,
+    .stCheckbox label {
+        color: #1f2937 !important;
+    }
+    /* Campos de entrada */
+    input, textarea, select {
+        background: white !important;
+        color: #1f2937 !important;
+    }
+}
+
+/* =========================
    PALETA
 ========================= */
 :root {

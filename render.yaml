@@ -3,7 +3,7 @@ services:
     name: silo-app
     runtime: python
     buildCommand: pip install -r silo_app/requirements.txt
-    startCommand: streamlit run silo_app/app/main.py --server.port $PORT --server.address 0.0.0.0
+    startCommand: cd silo_app && streamlit run app/main.py --server.port $PORT --server.address 0.0.0.0
     plan: free
     envVars:
       - key: PYTHON_VERSION
