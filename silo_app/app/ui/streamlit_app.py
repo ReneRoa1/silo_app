@@ -14,14 +14,14 @@ from app.ui.historico_page import render_historico_page
 from app.ui.sobre_page import render_sobre_page
 
 
-ASSETS_DIR = Path("app/assets")
+ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
 LOGO_PATH = ASSETS_DIR / "logo.png"
+CSS_PATH = ASSETS_DIR / "styles.css"
 
 
 def carregar_css_global() -> None:
-    css_path = Path("app/assets/styles.css")
-    if css_path.exists():
-        with open(css_path, "r", encoding="utf-8") as f:
+    if CSS_PATH.exists():
+        with open(CSS_PATH, "r", encoding="utf-8") as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
