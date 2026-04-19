@@ -1,66 +1,99 @@
 /* =========================
-   FORÇAR TEMA CLARO — ignora preferência do sistema/navegador
+   PALETA — Tokens semânticos (tema claro)
 ========================= */
-html, body, .stApp, [data-testid="stAppViewContainer"] {
-    color-scheme: light !important;
-}
+:root {
+    /* Superfícies regulares (adaptam ao modo) */
+    --bg-app-start: #f7f9fc;
+    --bg-app-end: #eef3f8;
+    --bg-surface: #ffffff;
+    --bg-surface-alt: #f5f8fc;
+    --bg-surface-hover: #e8f1fb;
+    --border-subtle: rgba(30, 79, 163, 0.12);
+    --border-input: rgba(30, 79, 163, 0.14);
 
-/* Override da media query de dark mode que o browser poderia aplicar */
-@media (prefers-color-scheme: dark) {
-    html, body, .stApp, [data-testid="stAppViewContainer"] {
-        color-scheme: light !important;
-        background: linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%) !important;
-        color: #1f2937 !important;
-    }
-    .main .block-container,
-    .main .block-container p,
-    .main .block-container li,
-    .main .block-container span,
-    .main .block-container h1,
-    .main .block-container h2,
-    .main .block-container h3,
-    .main .block-container h4,
-    .main .block-container h5,
-    .main .block-container h6,
-    .stMarkdown, .stMarkdown * {
-        color: #1f2937 !important;
-    }
-    /* Labels dos inputs */
-    label, .stTextInput label, .stNumberInput label,
-    .stSelectbox label, .stTextArea label,
-    .stMultiSelect label, .stSlider label, .stRadio label,
-    .stCheckbox label {
-        color: #1f2937 !important;
-    }
-    /* Campos de entrada */
-    input, textarea, select {
-        background: white !important;
-        color: #1f2937 !important;
-    }
+    /* Texto */
+    --text-primary: #1f2937;
+    --text-heading: #102a43;
+    --text-muted: #6b7280;
+    --text-disabled: #9ca3af;
+
+    /* Acento (estável entre modos) */
+    --accent: #1c93c6;
+    --accent-strong: #1e4fa3;
+    --accent-deep: #0d2a5c;
+    --accent-glow: rgba(28, 147, 198, 0.22);
+    --accent-glow-soft: rgba(28, 147, 198, 0.12);
+    --accent-fill-soft: rgba(28, 147, 198, 0.10);
+    --accent-fill-hover: rgba(28, 147, 198, 0.18);
+
+    /* Superfícies inversas (sidebar, hero, page-header, quick-action) — estáveis */
+    --inverse-bg-start: #0d2a5c;
+    --inverse-bg-end: #153b7a;
+    --inverse-text: #f8fafc;
+    --inverse-text-muted: #e2e8f0;
+    --inverse-divider: rgba(255, 255, 255, 0.08);
+    --inverse-fill-soft: rgba(255, 255, 255, 0.06);
+    --inverse-fill-hover: rgba(255, 255, 255, 0.18);
+
+    /* Sombras */
+    --shadow-soft: 0 8px 24px rgba(13, 42, 92, 0.12);
+    --shadow-medium: 0 12px 28px rgba(13, 42, 92, 0.18);
+    --shadow-input: 0 4px 10px rgba(13, 42, 92, 0.04);
+    --shadow-card-hover: 0 20px 44px rgba(13, 42, 92, 0.16);
+    --shadow-selected: 0 4px 14px rgba(0, 0, 0, 0.22);
+
+    /* Compatibilidade com regras antigas (mantém nomes legados) */
+    --azul-escuro: var(--accent-deep);
+    --azul-medio: var(--accent-strong);
+    --azul-claro: var(--accent);
+    --cinza-claro: var(--bg-surface-alt);
+    --cinza-medio: #d9dde3;
+    --texto-escuro: var(--text-primary);
+    --texto-claro: var(--inverse-text);
+    --branco: #ffffff;
+    --sombra-suave: var(--shadow-soft);
+    --sombra-media: var(--shadow-medium);
+    --borda-suave: 1px solid var(--border-subtle);
 }
 
 /* =========================
-   PALETA
+   PALETA — Tema escuro (automático via preferência do SO/navegador)
 ========================= */
-:root {
-    --azul-escuro: #0d2a5c;
-    --azul-medio: #1e4fa3;
-    --azul-claro: #1c93c6;
-    --cinza-claro: #f3f5f7;
-    --cinza-medio: #d9dde3;
-    --texto-escuro: #1f2937;
-    --texto-claro: #f8fafc;
-    --branco: #ffffff;
-    --sombra-suave: 0 8px 24px rgba(13, 42, 92, 0.12);
-    --sombra-media: 0 12px 28px rgba(13, 42, 92, 0.18);
-    --borda-suave: 1px solid rgba(30, 79, 163, 0.12);
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-app-start: #0b1220;
+        --bg-app-end: #111a2e;
+        --bg-surface: #182235;
+        --bg-surface-alt: #1f2a40;
+        --bg-surface-hover: #26324d;
+        --border-subtle: rgba(148, 163, 184, 0.14);
+        --border-input: rgba(148, 163, 184, 0.18);
+
+        --text-primary: #e5e7eb;
+        --text-heading: #f1f5f9;
+        --text-muted: #9ca3af;
+        --text-disabled: #6b7280;
+
+        --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.45);
+        --shadow-medium: 0 12px 28px rgba(0, 0, 0, 0.55);
+        --shadow-input: 0 4px 10px rgba(0, 0, 0, 0.35);
+        --shadow-card-hover: 0 20px 44px rgba(0, 0, 0, 0.55);
+
+        --cinza-medio: #394257;
+
+        /* Compatibilidade */
+        --sombra-suave: var(--shadow-soft);
+        --sombra-media: var(--shadow-medium);
+        --borda-suave: 1px solid var(--border-subtle);
+    }
 }
 
 /* =========================
    FUNDO GERAL
 ========================= */
 .stApp {
-    background: linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%) !important;
+    background: linear-gradient(180deg, var(--bg-app-start) 0%, var(--bg-app-end) 100%) !important;
+    color: var(--text-primary);
 }
 
 /* =========================
@@ -107,21 +140,21 @@ html, body, .stApp, [data-testid="stAppViewContainer"] {
 }
 
 .stepper-circle.done {
-    background: var(--azul-claro) !important;
+    background: var(--accent) !important;
     color: white !important;
-    box-shadow: 0 3px 8px rgba(28, 147, 198, 0.3);
+    box-shadow: 0 3px 8px var(--accent-glow);
 }
 
 .stepper-circle.active {
-    background: linear-gradient(135deg, var(--azul-medio), var(--azul-claro)) !important;
+    background: linear-gradient(135deg, var(--accent-strong), var(--accent)) !important;
     color: white !important;
-    box-shadow: 0 4px 12px rgba(28, 147, 198, 0.35);
+    box-shadow: 0 4px 12px var(--accent-glow);
     transform: scale(1.1);
 }
 
 .stepper-circle.pending {
     background: var(--cinza-medio) !important;
-    color: #9ca3af !important;
+    color: var(--text-disabled) !important;
 }
 
 .stepper-label {
@@ -130,9 +163,9 @@ html, body, .stApp, [data-testid="stAppViewContainer"] {
     white-space: nowrap;
 }
 
-.stepper-label.done  { color: var(--azul-claro) !important; }
-.stepper-label.active { color: var(--azul-escuro) !important; }
-.stepper-label.pending { color: #9ca3af !important; }
+.stepper-label.done  { color: var(--accent) !important; }
+.stepper-label.active { color: var(--text-heading) !important; }
+.stepper-label.pending { color: var(--text-disabled) !important; }
 
 .stepper-line {
     flex: 1;
@@ -141,36 +174,18 @@ html, body, .stApp, [data-testid="stAppViewContainer"] {
     border-radius: 1px;
 }
 
-.stepper-line.done { background: var(--azul-claro) !important; }
+.stepper-line.done { background: var(--accent) !important; }
 .stepper-line.pending { background: var(--cinza-medio) !important; }
 
 /* =========================
-   SIDEBAR — seletor sem prefixo de tag para funcionar em todas as versões
+   SIDEBAR — sempre com gradiente escuro (decorativa, estável nos dois modos)
 ========================= */
 [data-testid="stSidebar"],
 [data-testid="stSidebar"] > div,
 [data-testid="stSidebarContent"],
 [data-testid="stSidebarNav"] {
-    background: linear-gradient(180deg, var(--azul-escuro) 0%, #153b7a 100%) !important;
-    border-right: 1px solid rgba(255,255,255,0.08) !important;
-}
-
-/* Dark-mode do sistema: manter sidebar com o mesmo gradiente escuro */
-@media (prefers-color-scheme: dark) {
-    [data-testid="stSidebar"],
-    [data-testid="stSidebar"] > div,
-    [data-testid="stSidebarContent"] {
-        background: linear-gradient(180deg, var(--azul-escuro) 0%, #153b7a 100%) !important;
-    }
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] span,
-    [data-testid="stSidebar"] div,
-    [data-testid="stSidebar"] h1,
-    [data-testid="stSidebar"] h2,
-    [data-testid="stSidebar"] h3,
-    [data-testid="stSidebar"] label {
-        color: #f8fafc !important;
-    }
+    background: linear-gradient(180deg, var(--inverse-bg-start) 0%, var(--inverse-bg-end) 100%) !important;
+    border-right: 1px solid var(--inverse-divider) !important;
 }
 
 [data-testid="stSidebar"] p,
@@ -183,14 +198,14 @@ html, body, .stApp, [data-testid="stAppViewContainer"] {
 [data-testid="stSidebar"] h5,
 [data-testid="stSidebar"] h6,
 [data-testid="stSidebar"] label {
-    color: #f8fafc !important;
+    color: var(--inverse-text) !important;
 }
 
 /* Option menu nav links na sidebar */
 [data-testid="stSidebar"] .nav-link {
-    color: #e2e8f0 !important;
-    background: rgba(255,255,255,0.06) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    color: var(--inverse-text-muted) !important;
+    background: var(--inverse-fill-soft) !important;
+    border: 1px solid var(--inverse-divider) !important;
     border-radius: 12px !important;
     padding: 10px 14px !important;
     margin: 3px 0 !important;
@@ -199,23 +214,23 @@ html, body, .stApp, [data-testid="stAppViewContainer"] {
 }
 
 [data-testid="stSidebar"] .nav-link:hover {
-    background: rgba(28, 147, 198, 0.22) !important;
-    border-color: rgba(255,255,255,0.18) !important;
+    background: var(--accent-glow) !important;
+    border-color: var(--inverse-fill-hover) !important;
     color: white !important;
 }
 
 [data-testid="stSidebar"] .nav-link.active,
 [data-testid="stSidebar"] .nav-link-selected {
-    background: linear-gradient(90deg, #1e4fa3, #1c93c6) !important;
+    background: linear-gradient(90deg, var(--accent-strong), var(--accent)) !important;
     color: white !important;
     font-weight: 600 !important;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.22) !important;
+    box-shadow: var(--shadow-selected) !important;
     border-color: transparent !important;
 }
 
 [data-testid="stSidebar"] .nav-link .icon,
 [data-testid="stSidebar"] .nav-link i {
-    color: #1c93c6 !important;
+    color: var(--accent) !important;
 }
 
 [data-testid="stSidebar"] .nav-link.active .icon,
@@ -238,24 +253,24 @@ html, body, .stApp, [data-testid="stAppViewContainer"] {
 .main .stDownloadButton > button {
     border-radius: 14px !important;
     border: none !important;
-    background: linear-gradient(90deg, var(--azul-escuro), var(--azul-medio)) !important;
+    background: linear-gradient(90deg, var(--accent-deep), var(--accent-strong)) !important;
     color: white !important;
     font-weight: 600 !important;
-    box-shadow: var(--sombra-suave);
+    box-shadow: var(--shadow-soft);
     transition: all 0.2s ease-in-out !important;
 }
 
 .main .stButton > button:hover,
 .main .stDownloadButton > button:hover {
     transform: translateY(-1px);
-    box-shadow: var(--sombra-media);
-    background: linear-gradient(90deg, var(--azul-medio), var(--azul-claro)) !important;
+    box-shadow: var(--shadow-medium);
+    background: linear-gradient(90deg, var(--accent-strong), var(--accent)) !important;
 }
 
 .main .stButton > button:focus,
 .main .stDownloadButton > button:focus {
     outline: none !important;
-    box-shadow: 0 0 0 3px rgba(28, 147, 198, 0.22), var(--sombra-suave);
+    box-shadow: 0 0 0 3px var(--accent-glow), var(--shadow-soft);
 }
 
 /* =========================
@@ -267,17 +282,17 @@ html, body, .stApp, [data-testid="stAppViewContainer"] {
 .stSelectbox > div > div,
 .stMultiSelect > div > div {
     border-radius: 14px !important;
-    border: 1px solid rgba(30, 79, 163, 0.14) !important;
-    background: white !important;
-    box-shadow: 0 4px 10px rgba(13, 42, 92, 0.04);
+    border: 1px solid var(--border-input) !important;
+    background: var(--bg-surface) !important;
+    box-shadow: var(--shadow-input);
 }
 
 .stTextInput input,
 .stNumberInput input,
 .stTextArea textarea,
 .stSelectbox select {
-    color: var(--texto-escuro) !important;
-    background: white !important;
+    color: var(--text-primary) !important;
+    background: var(--bg-surface) !important;
 }
 
 .stTextInput label,
@@ -286,15 +301,15 @@ html, body, .stApp, [data-testid="stAppViewContainer"] {
 .stTextArea label,
 .stMultiSelect label,
 .stSlider label {
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
 }
 
 .stTextInput > div > div:focus-within,
 .stNumberInput > div > div:focus-within,
 .stSelectbox > div > div:focus-within,
 .stMultiSelect > div > div:focus-within {
-    border-color: var(--azul-claro) !important;
-    box-shadow: 0 0 0 3px rgba(28, 147, 198, 0.18) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px var(--accent-glow-soft) !important;
 }
 
 /* =========================
@@ -304,13 +319,13 @@ button[data-baseweb="tab"] {
     border-radius: 12px 12px 0 0 !important;
     padding: 10px 16px !important;
     font-weight: 600 !important;
-    color: #6b7280 !important;
+    color: var(--text-muted) !important;
     background: transparent !important;
 }
 
 button[data-baseweb="tab"][aria-selected="true"] {
-    color: var(--azul-escuro) !important;
-    border-bottom: 3px solid var(--azul-claro) !important;
+    color: var(--text-heading) !important;
+    border-bottom: 3px solid var(--accent) !important;
     background: transparent !important;
 }
 
@@ -318,62 +333,62 @@ button[data-baseweb="tab"][aria-selected="true"] {
    MÉTRICAS
 ========================= */
 div[data-testid="metric-container"] {
-    background: white !important;
+    background: var(--bg-surface) !important;
     border-radius: 18px;
     padding: 14px 16px;
-    box-shadow: var(--sombra-suave);
-    border: var(--borda-suave);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-subtle);
 }
 
 div[data-testid="metric-container"],
 div[data-testid="metric-container"] * {
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
 }
 
 /* =========================
    TABELAS / DATAFRAMES
 ========================= */
 div[data-testid="stDataFrame"] {
-    background: white !important;
+    background: var(--bg-surface) !important;
     border-radius: 16px !important;
     padding: 8px !important;
-    box-shadow: 0 8px 24px rgba(13, 42, 92, 0.10) !important;
-    border: 1px solid rgba(30, 79, 163, 0.10) !important;
+    box-shadow: var(--shadow-soft) !important;
+    border: 1px solid var(--border-subtle) !important;
 }
 
 div[data-testid="stDataFrame"],
 div[data-testid="stDataFrame"] * {
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
 }
 
 table {
-    background: white !important;
-    color: var(--texto-escuro) !important;
+    background: var(--bg-surface) !important;
+    color: var(--text-primary) !important;
     border-collapse: collapse !important;
     border-radius: 12px;
     overflow: hidden;
 }
 
 thead tr th {
-    background: var(--azul-escuro) !important;
+    background: var(--accent-deep) !important;
     color: white !important;
     font-weight: 600;
 }
 
 tbody tr:nth-child(even) {
-    background: #f5f8fc !important;
+    background: var(--bg-surface-alt) !important;
 }
 
 tbody tr:nth-child(odd) {
-    background: white !important;
+    background: var(--bg-surface) !important;
 }
 
 tbody tr:hover {
-    background: #e8f1fb !important;
+    background: var(--bg-surface-hover) !important;
 }
 
 th, td {
-    border: 1px solid rgba(13, 42, 92, 0.08) !important;
+    border: 1px solid var(--border-subtle) !important;
     padding: 10px 12px !important;
 }
 
@@ -385,10 +400,10 @@ details,
 [data-testid="stExpander"] > details,
 [data-testid="stExpander"] > div,
 div[data-testid="stExpander"] {
-    background: white !important;
+    background: var(--bg-surface) !important;
     border-radius: 14px !important;
-    box-shadow: var(--sombra-suave);
-    border: var(--borda-suave);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-subtle);
 }
 
 details {
@@ -402,7 +417,7 @@ details summary *,
 [data-testid="stExpanderToggleIcon"],
 [data-testid="stExpanderHeader"],
 [data-testid="stExpanderHeader"] * {
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
     background: transparent !important;
 }
 
@@ -410,24 +425,7 @@ details > div,
 details > div *,
 [data-testid="stExpander"] [data-testid="stExpanderDetails"],
 [data-testid="stExpander"] [data-testid="stExpanderDetails"] * {
-    color: var(--texto-escuro) !important;
-}
-
-/* Garantir no dark-mode do sistema também */
-@media (prefers-color-scheme: dark) {
-    details,
-    [data-testid="stExpander"],
-    [data-testid="stExpander"] > details,
-    [data-testid="stExpander"] > div {
-        background: white !important;
-    }
-    details summary, details summary *,
-    [data-testid="stExpander"] summary,
-    [data-testid="stExpander"] summary *,
-    [data-testid="stExpanderHeader"],
-    [data-testid="stExpanderHeader"] * {
-        color: #1f2937 !important;
-    }
+    color: var(--text-primary) !important;
 }
 
 /* =========================
@@ -435,12 +433,11 @@ details > div *,
 ========================= */
 div[data-testid="stAlert"] {
     border-radius: 14px !important;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-soft);
 }
 
 /* =========================
    HEADINGS & TEXT (main area)
-   Seletores especificos em vez de .main *
 ========================= */
 .main .block-container h1,
 .main .block-container h2,
@@ -448,13 +445,13 @@ div[data-testid="stAlert"] {
 .main .block-container h4,
 .main .block-container h5,
 .main .block-container h6 {
-    color: #102a43 !important;
+    color: var(--text-heading) !important;
 }
 
 .main .block-container p,
 .main .block-container li,
 .main .block-container span {
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
 }
 
 /* Markdown text */
@@ -462,25 +459,24 @@ div[data-testid="stAlert"] {
 .stMarkdown p,
 .stMarkdown li,
 .stMarkdown span {
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
 }
 
 /* Caption text */
 .stCaption,
 .stCaption * {
-    color: #6b7280 !important;
+    color: var(--text-muted) !important;
 }
 
 /* =========================
-   PAGE HEADER / BANNER
-   (fundo escuro -> texto branco)
+   PAGE HEADER / BANNER (fundo escuro fixo)
 ========================= */
 .page-header {
-    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio)) !important;
+    background: linear-gradient(135deg, var(--inverse-bg-start), var(--accent-strong)) !important;
     border-radius: 16px;
     padding: 24px 32px;
     margin-bottom: 24px;
-    box-shadow: var(--sombra-media);
+    box-shadow: var(--shadow-medium);
 }
 
 .page-header h1,
@@ -493,14 +489,13 @@ div[data-testid="stAlert"] {
 }
 
 /* =========================
-   HERO / BANNER (Home)
-   (fundo escuro -> texto branco)
+   HERO / BANNER (Home) — fundo escuro fixo
 ========================= */
 .hero-banner {
-    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio)) !important;
+    background: linear-gradient(135deg, var(--inverse-bg-start), var(--accent-strong)) !important;
     border-radius: 22px;
     padding: 32px 36px;
-    box-shadow: var(--sombra-media);
+    box-shadow: var(--shadow-medium);
 }
 
 .hero-banner h1,
@@ -525,16 +520,15 @@ div[data-testid="stAlert"] {
 }
 
 /* =========================
-   NAV CARDS (Home — o próprio <a> é o card clicável)
+   NAV CARDS (Home)
 ========================= */
-
 .nav-card {
     display: block;
     position: relative;
-    background: white !important;
+    background: var(--bg-surface) !important;
     border-radius: 20px;
-    border: 1px solid rgba(30, 79, 163, 0.10);
-    box-shadow: 0 4px 20px rgba(13, 42, 92, 0.08);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-soft);
     padding: 28px 22px 20px;
     min-height: 220px;
     text-decoration: none !important;
@@ -548,8 +542,8 @@ div[data-testid="stAlert"] {
 
 .nav-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 44px rgba(13, 42, 92, 0.16);
-    border-color: rgba(28, 147, 198, 0.32);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--accent-glow);
     text-decoration: none !important;
 }
 
@@ -558,12 +552,11 @@ div[data-testid="stAlert"] {
     transition-duration: 0.08s;
 }
 
-/* Badge no canto superior direito */
 .nav-card-badge {
     position: absolute;
     top: 0;
     right: 0;
-    background: linear-gradient(135deg, #1e4fa3, #1c93c6);
+    background: linear-gradient(135deg, var(--accent-strong), var(--accent));
     color: white !important;
     font-size: 0.68rem;
     font-weight: 700;
@@ -574,52 +567,48 @@ div[data-testid="stAlert"] {
     line-height: 1;
 }
 
-/* Ícone em quadrado claro */
 .nav-card-icon {
     width: 54px;
     height: 54px;
-    background: rgba(28, 147, 198, 0.10);
+    background: var(--accent-fill-soft);
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.65rem;
-    color: #1c93c6 !important;
+    color: var(--accent) !important;
     margin-top: 14px;
     margin-bottom: 16px;
     transition: background 0.28s ease, transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .nav-card:hover .nav-card-icon {
-    background: rgba(28, 147, 198, 0.18);
+    background: var(--accent-fill-hover);
     transform: scale(1.10);
 }
 
-/* Título */
 .nav-card-title {
     font-size: 1.12rem !important;
     font-weight: 700 !important;
-    color: #0d2a5c !important;
+    color: var(--text-heading) !important;
     margin: 0 0 8px 0 !important;
     line-height: 1.3 !important;
 }
 
-/* Descrição */
 .nav-card-desc {
     font-size: 0.875rem !important;
-    color: #6b7280 !important;
+    color: var(--text-muted) !important;
     line-height: 1.6 !important;
     margin: 0 0 18px 0 !important;
 }
 
-/* Link de ação (no próprio card) */
 .nav-card-link {
     display: inline-flex;
     align-items: center;
     gap: 5px;
     font-size: 0.83rem;
     font-weight: 600;
-    color: #1c93c6 !important;
+    color: var(--accent) !important;
     transition: gap 0.22s ease;
 }
 
@@ -638,7 +627,7 @@ div[data-testid="stAlert"] {
 }
 
 .step-number {
-    background: linear-gradient(135deg, var(--azul-medio), var(--azul-claro)) !important;
+    background: linear-gradient(135deg, var(--accent-strong), var(--accent)) !important;
     color: white !important;
     border-radius: 50%;
     width: 36px;
@@ -649,36 +638,35 @@ div[data-testid="stAlert"] {
     justify-content: center;
     font-weight: 700;
     font-size: 0.95rem;
-    box-shadow: 0 4px 10px rgba(28, 147, 198, 0.25);
+    box-shadow: 0 4px 10px var(--accent-glow);
 }
 
 .step-text {
     font-size: 0.95rem;
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
     padding-top: 6px;
 }
 
 /* =========================
    KPI CARDS (Dimensionamento)
-   (fundo branco -> texto escuro)
 ========================= */
 .kpi-card {
-    background: white !important;
+    background: var(--bg-surface) !important;
     border-radius: 16px;
     padding: 18px 20px;
-    box-shadow: var(--sombra-suave);
-    border-left: 4px solid var(--azul-claro);
+    box-shadow: var(--shadow-soft);
+    border-left: 4px solid var(--accent);
     transition: all 0.2s ease;
 }
 
 .kpi-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--sombra-media);
+    box-shadow: var(--shadow-medium);
 }
 
 .kpi-card .kpi-label {
     font-size: 0.82rem;
-    color: #6b7280 !important;
+    color: var(--text-muted) !important;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 6px;
@@ -687,19 +675,18 @@ div[data-testid="stAlert"] {
 .kpi-card .kpi-value {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--azul-escuro) !important;
+    color: var(--text-heading) !important;
 }
 
 /* =========================
    RESULT CARD
-   (fundo branco -> texto escuro)
 ========================= */
 .result-card {
-    background: white !important;
+    background: var(--bg-surface) !important;
     border-radius: 18px;
     padding: 22px 26px;
-    box-shadow: var(--sombra-suave);
-    border: var(--borda-suave);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-subtle);
     margin-bottom: 16px;
 }
 
@@ -708,27 +695,61 @@ div[data-testid="stAlert"] {
 .result-card p,
 .result-card li,
 .result-card span {
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
+}
+
+.result-card h4 {
+    color: var(--text-heading) !important;
+    margin-bottom: 12px;
+}
+
+/* =========================
+   EMPTY STATE (Dimensionamento — aba Resultados sem dados)
+========================= */
+.empty-state {
+    background: var(--bg-surface);
+    border-radius: 18px;
+    padding: 48px 24px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-subtle);
+    text-align: center;
+}
+
+.empty-state .empty-state-icon {
+    font-size: 2.4rem;
+    color: var(--accent) !important;
+    margin-bottom: 8px;
+}
+
+.empty-state h3 {
+    color: var(--text-heading) !important;
+    margin: 4px 0 6px 0 !important;
+}
+
+.empty-state p {
+    color: var(--text-muted) !important;
+    font-size: 1rem;
+    margin: 0 !important;
 }
 
 /* =========================
    INPUT BLOCK (Dimensionamento form)
 ========================= */
 .input-block {
-    background: white !important;
+    background: var(--bg-surface) !important;
     border-radius: 16px;
     padding: 20px 24px;
-    box-shadow: var(--sombra-suave);
-    border: var(--borda-suave);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-subtle);
     margin-bottom: 16px;
 }
 
 .input-block h4 {
-    color: var(--azul-escuro) !important;
+    color: var(--text-heading) !important;
     font-size: 1.05rem !important;
     margin-bottom: 14px !important;
     padding-bottom: 8px;
-    border-bottom: 2px solid rgba(28, 147, 198, 0.15);
+    border-bottom: 2px solid var(--accent-glow-soft);
 }
 
 /* =========================
@@ -741,14 +762,13 @@ div[data-testid="stAlert"] {
 }
 
 /* =========================
-   QUICK ACTION CARD
-   (fundo escuro -> texto branco)
+   QUICK ACTION CARD — fundo escuro fixo
 ========================= */
 .quick-action {
-    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio)) !important;
+    background: linear-gradient(135deg, var(--inverse-bg-start), var(--accent-strong)) !important;
     border-radius: 18px;
     padding: 24px 28px;
-    box-shadow: var(--sombra-media);
+    box-shadow: var(--shadow-medium);
     text-align: center;
 }
 
@@ -773,7 +793,7 @@ div[data-testid="stAlert"] {
    SLIDER
 ========================= */
 .stSlider > div > div {
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
 }
 
 /* =========================
@@ -781,15 +801,15 @@ div[data-testid="stAlert"] {
 ========================= */
 [data-baseweb="select"] span,
 [data-baseweb="select"] div {
-    color: var(--texto-escuro) !important;
+    color: var(--text-primary) !important;
 }
 
 [data-baseweb="popover"] li,
 [data-baseweb="popover"] li * {
-    color: var(--texto-escuro) !important;
-    background: white !important;
+    color: var(--text-primary) !important;
+    background: var(--bg-surface) !important;
 }
 
 [data-baseweb="popover"] li:hover {
-    background: #eef3f8 !important;
+    background: var(--bg-surface-hover) !important;
 }

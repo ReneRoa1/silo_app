@@ -80,24 +80,8 @@ def run_streamlit_app() -> None:
             default_index=idx_atual,
             styles={
                 "container": {"padding": "6px 8px", "background-color": "transparent"},
-                "icon": {"color": "#1c93c6", "font-size": "17px"},
-                "nav-link": {
-                    "font-size": "14px",
-                    "text-align": "left",
-                    "margin": "3px 0",
-                    "border-radius": "12px",
-                    "padding": "10px 14px",
-                    "color": "#e2e8f0",
-                    "background": "rgba(255,255,255,0.06)",
-                    "border": "1px solid rgba(255,255,255,0.08)",
-                    "--hover-color": "rgba(28, 147, 198, 0.18)",
-                },
-                "nav-link-selected": {
-                    "background": "linear-gradient(90deg, #1e4fa3, #1c93c6)",
-                    "color": "white",
-                    "font-weight": "600",
-                    "box-shadow": "0 4px 14px rgba(0,0,0,0.22)",
-                },
+                "icon": {"font-size": "17px"},
+                "nav-link": {"text-align": "left"},
             },
         )
         st.session_state["pagina_atual"] = pagina

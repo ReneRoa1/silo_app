@@ -33,7 +33,7 @@ def render_sobre_page() -> None:
         st.markdown(
             """
             <div class="result-card">
-                <h4 style="color: #0d2a5c !important; margin-bottom: 12px;">Recursos atuais</h4>
+                <h4>Recursos atuais</h4>
                 <ul style="line-height: 2;">
                     <li>Dimensionamento tecnico</li>
                     <li>Otimizacao geometrica</li>
@@ -51,7 +51,7 @@ def render_sobre_page() -> None:
         st.markdown(
             """
             <div class="result-card">
-                <h4 style="color: #0d2a5c !important; margin-bottom: 12px;">Informacoes do prototipo</h4>
+                <h4>Informacoes do prototipo</h4>
                 <ul style="line-height: 2;">
                     <li><strong>Versao:</strong> Prototipo 0.1</li>
                     <li><strong>Status:</strong> Em desenvolvimento</li>

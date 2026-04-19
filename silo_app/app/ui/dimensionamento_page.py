@@ -351,14 +351,10 @@ def _render_resultados(projeto_service: ProjetoService) -> None:
     if not resultado or not entrada_salva:
         st.markdown(
             """
-            <div class="result-card" style="text-align: center; padding: 48px 24px;">
-                <p style="font-size: 1.2rem; color: #6b7280 !important; margin-bottom: 8px;">
-                    <i class="bi bi-clipboard-data" style="font-size: 2.4rem; color: #1c93c6;"></i>
-                </p>
-                <h3 style="color: #1f2937 !important;">Nenhum resultado disponivel</h3>
-                <p style="color: #6b7280 !important;">
-                    Preencha os dados na aba <strong>Entrada de Dados</strong> e execute o dimensionamento.
-                </p>
+            <div class="empty-state">
+                <div class="empty-state-icon"><i class="bi bi-clipboard-data"></i></div>
+                <h3>Nenhum resultado disponivel</h3>
+                <p>Preencha os dados na aba <strong>Entrada de Dados</strong> e execute o dimensionamento.</p>
             </div>
             """,
             unsafe_allow_html=True,
