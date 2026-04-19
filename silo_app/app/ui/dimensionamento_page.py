@@ -8,9 +8,15 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from app.domain.models import EntradaDimensionamento, Projeto
-from app.services.dimensionamento_service import executar_dimensionamento
 from app.services.projeto_service import ProjetoService
 from app.services.relatorio_service import gerar_pdf_projeto
+from app.ui._cached_queries import (
+    buscar_projeto_por_nome_cached,
+    carregar_resultado_simulacao_cached,
+    executar_dimensionamento_cached,
+    invalidar_cache_projetos,
+    listar_simulacoes_cached,
+)
 from app.visualization.plotly_3d import (
     criar_solido_prismatico,
     criar_solido_superficie_oval,
@@ -63,7 +69,8 @@ def render_dimensionamento_page() -> None:
     if st.session_state.get("carregar_projeto_automaticamente"):
         projeto_id = st.session_state.get("projeto_id_selecionado")
         if projeto_id:
-            projeto = projeto_service.carregar_dados_do_projeto(projeto_id)
+            with st.spinner("Carregando projeto..."):
+                projeto = projeto_service.carregar_dados_do_projeto(projeto_id)
             if projeto:
                 _carregar_projeto_na_sessao(projeto)
         st.session_state["carregar_projeto_automaticamente"] = False
@@ -71,8 +78,9 @@ def render_dimensionamento_page() -> None:
     if st.session_state.get("carregar_simulacao_automaticamente"):
         simulacao_id = st.session_state.get("simulacao_id_selecionada")
         if simulacao_id:
-            entrada_dict = projeto_service.carregar_entrada_da_simulacao(simulacao_id)
-            simulacao = projeto_service.buscar_simulacao_por_id(simulacao_id)
+            with st.spinner("Carregando simulacao..."):
+                entrada_dict = projeto_service.carregar_entrada_da_simulacao(simulacao_id)
+                simulacao = projeto_service.buscar_simulacao_por_id(simulacao_id)
             if entrada_dict:
                 _carregar_entrada_na_sessao(entrada_dict)
                 st.session_state["etapa_entrada"] = 4
@@ -297,7 +305,7 @@ def _render_entrada_dados() -> None:
                 entrada = _montar_entrada()
                 with st.spinner("Calculando o dimensionamento..."):
                     try:
-                        resultado = executar_dimensionamento(entrada)
+                        resultado = executar_dimensionamento_cached(entrada)
                         st.session_state["resultado"] = resultado
                         st.session_state["entrada"] = entrada
                         st.session_state["indice_solucao_ativa"] = 0
@@ -564,6 +572,7 @@ def _render_3d_exportacao(melhor, resultado, entrada_salva, projeto_service) -> 
                         project_id, entrada_salva, resultado,
                         nome_simulacao=nome_simulacao.strip() if nome_simulacao.strip() else None,
                     )
+                    invalidar_cache_projetos()
                     st.success(
                         f"Simulacao salva com sucesso no projeto ID {project_id}. "
                         f"Simulacao ID {simulation_id}."
@@ -581,10 +590,11 @@ def _render_3d_exportacao(melhor, resultado, entrada_salva, projeto_service) -> 
         try:
             resultado_pdf = resultado
             resultado_pdf.melhor_solucao = melhor
-            pdf = gerar_pdf_projeto(
-                projeto, entrada_salva, resultado_pdf,
-                caminho_imagem_silo=str(caminho) if caminho else None
-            )
+            with st.spinner("Gerando PDF..."):
+                pdf = gerar_pdf_projeto(
+                    projeto, entrada_salva, resultado_pdf,
+                    caminho_imagem_silo=str(caminho) if caminho else None
+                )
             st.download_button(
                 "Baixar PDF", pdf, "relatorio.pdf",
                 mime="application/pdf", use_container_width=True,
@@ -595,24 +605,28 @@ def _render_3d_exportacao(melhor, resultado, entrada_salva, projeto_service) -> 
     st.markdown("---")
     st.subheader("Historico resumido do projeto")
 
-    projeto_existente = projeto_service.repository.buscar_projeto_por_nome(nome_projeto)
-    if projeto_existente:
-        simulacoes_projeto = projeto_service.listar_simulacoes_do_projeto(int(projeto_existente["id"]))
-        if simulacoes_projeto:
-            linhas_historico = []
-            for sim in simulacoes_projeto:
-                dados_resultado = projeto_service.carregar_resultado_da_simulacao(sim["id"]) or {}
-                melhor_hist = dados_resultado.get("melhor_solucao", {})
-                linhas_historico.append({
-                    "ID Simulacao": sim["id"],
-                    "Nome": sim.get("nome_simulacao") or f"Simulacao {sim['id']}",
-                    "Data": sim["created_at"],
-                    "Tipo": melhor_hist.get("tipo", "-"),
-                    "Volume (m3)": round(float(melhor_hist.get("volume_silo_m3", 0) or 0), 2),
-                    "Area plantio (ha)": round(float(dados_resultado.get("area_a_ser_plantada", 0) or 0), 2),
-                })
-            st.dataframe(pd.DataFrame(linhas_historico), use_container_width=True, hide_index=True)
-        else:
-            st.info("Este projeto ainda nao possui simulacoes registradas.")
+    with st.spinner("Carregando historico..."):
+        projeto_existente = buscar_projeto_por_nome_cached(nome_projeto)
+        simulacoes_projeto = (
+            listar_simulacoes_cached(int(projeto_existente["id"]))
+            if projeto_existente else []
+        )
+        linhas_historico = []
+        for sim in simulacoes_projeto:
+            dados_resultado = carregar_resultado_simulacao_cached(sim["id"]) or {}
+            melhor_hist = dados_resultado.get("melhor_solucao", {})
+            linhas_historico.append({
+                "ID Simulacao": sim["id"],
+                "Nome": sim.get("nome_simulacao") or f"Simulacao {sim['id']}",
+                "Data": sim["created_at"],
+                "Tipo": melhor_hist.get("tipo", "-"),
+                "Volume (m3)": round(float(melhor_hist.get("volume_silo_m3", 0) or 0), 2),
+                "Area plantio (ha)": round(float(dados_resultado.get("area_a_ser_plantada", 0) or 0), 2),
+            })
+
+    if projeto_existente and linhas_historico:
+        st.dataframe(pd.DataFrame(linhas_historico), use_container_width=True, hide_index=True)
+    elif projeto_existente:
+        st.info("Este projeto ainda nao possui simulacoes registradas.")
     else:
         st.info("Salve este projeto para comecar a formar o historico.")

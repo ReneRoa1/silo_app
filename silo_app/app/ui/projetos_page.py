@@ -4,12 +4,13 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from app.services.projeto_service import ProjetoService
+from app.ui._cached_queries import (
+    listar_projetos_cached,
+    listar_simulacoes_cached,
+)
 
 
 def render_projetos_page() -> None:
-    projeto_service = ProjetoService()
-
     st.markdown(
         """
         <div class="page-header">
@@ -20,7 +21,8 @@ def render_projetos_page() -> None:
         unsafe_allow_html=True,
     )
 
-    projetos = projeto_service.listar_projetos()
+    with st.spinner("Carregando projetos..."):
+        projetos = listar_projetos_cached()
 
     if not projetos:
         st.info("Nenhum projeto salvo ainda.")
@@ -47,7 +49,8 @@ def render_projetos_page() -> None:
     projeto_label = st.selectbox("Selecionar projeto", list(opcoes.keys()))
     projeto_id = opcoes[projeto_label]
 
-    simulacoes = projeto_service.listar_simulacoes_do_projeto(projeto_id)
+    with st.spinner("Carregando simulacoes..."):
+        simulacoes = listar_simulacoes_cached(projeto_id)
 
     st.markdown("### Simulacoes do projeto")
     simulacao_id = None
